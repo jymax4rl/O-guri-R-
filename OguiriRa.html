@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="snk">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Soninké Voices</title>
+    <meta name="description"
+        content="A community space where Soninké professionals share experience via short audio." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CDN + config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"] },
+                    colors: { brand: "#34d399", brand2: "#60a5fa" },
+                    maxWidth: { content: "1100px" },
+                    boxShadow: { brand: "0 20px 30px rgba(0,0,0,.35)" },
+                    borderRadius: { brand: "16px" }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="relative bg-[#0b0c10] text-[#e7e9ee] antialiased">
+    <!-- Background accents -->
+    <div class="pointer-events-none fixed inset-0 -z-10">
+        <div class="absolute -top-24 left-0 h-[600px] w-[1200px] rounded-full bg-brand1/10 blur-3xl"></div>
+        <div class="absolute -top-10 right-0 h-[800px] w-[800px] rounded-full bg-brand2/10 blur-3xl"></div>
+    </div>
+
+    <!-- ====== NAV ====== -->
+    <nav class="sticky top-0 z-50 backdrop-blur border-b border-white/10 bg-black/40">
+        <div class="mx-auto max-w-content px-6 py-3 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2 font-bold tracking-tight">
+                <span class="size-7 rounded-lg bg-gradient-to-br from-brand to-brand2 shadow" aria-hidden="true"></span>
+                O guiri Ra • OGR
+            </div>
+            <div class="flex gap-5 opacity-90">
+                <a class="hover:opacity-100" href="#upload">Contribuer</a>
+                <a class="hover:opacity-100" href="#explore">Explorer</a>
+                <a class="hover:opacity-100" href="#about">À propos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ====== HERO ====== -->
+    <header class=" h-screen w-screen flex flex-col justify-center gap-5 items-center align-center px-6 pt-16 pb-9">
+        <h1 class="w-50  text-center text-3xl md:text-5xl font-bold leading-tight">
+            Partage ton
+            savoir. Inspire
+            Soninkara. <br /> Du tu, ɲa a ɲimmé yi.
+        </h1>
+        <p class="mt-3 text-neutral-400 max-w-prose">Un espace audio où les professionnel·le·s soninké racontent
+            leurs
+            parcours, leurs conseils et leurs erreurs pour aider la prochaine génération.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black font-semibold shadow"
+                href="#upload">+ Contribuer</a>
+            <a class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20"
+                href="#explore">Écouter les savants</a>
+        </div>
+    </header>
+
+    <!-- ====== MAIN GRID ====== -->
+    <main id="upload" class="mx-auto max-w-content px-6 grid gap-5 md:grid-cols-2">
+        <!-- Upload card -->
+        <section aria-labelledby="upload-title border-2 border-solid"
+            class="rounded-[16px] border-none bg-neutral-900/60 p-5 shadow-md">
+            <h2 id="upload-title" class="text-2xl font-semibold">Contribuer un témoignage</h2>
+            <p class="text-neutral-400 mb-4">Charge un fichier .mp3 ou enregistre directement depuis ton navigateur.</p>
+
+            <div id="dropzone" tabindex="0" role="button" aria-label="Déposer un fichier MP3 ici"
+                class="group border-2 border-dashed border-white/30 rounded-xl p-8 text-center outline-none focus-visible:ring-4 focus-visible:ring-brand/30 focus-visible:border-brand cursor-pointer">
+                <strong>Glisse-dépose</strong> votre MP3 ici, ou <u>clique pour sélectionner</u>.
+                <input id="file-input" type="file" accept="audio/mpeg" hidden />
+            </div>
+
+            <div class="grid gap-3 mt-4">
+                <div class="grid gap-1.5">
+                    <label for="title" class="text-sm text-neutral-400">Titre</label>
+                    <input id="title"
+                        class="border-none bg-neutral-900/60 border border-white/20 rounded-xl px-3 py-2 outline-none focus:ring-4 focus:ring-brand/30"
+                        placeholder="Ex: Comment j'ai trouvé mon premier emploi en hôtellerie" />
+                </div>
+                <div class="grid gap-1.5">
+                    <label for="category" class="text-sm text-neutral-400">Catégorie</label>
+                    <select id="category"
+                        class="bg-neutral-900/60 border border-white/20 rounded-xl px-3 py-2 outline-none focus:ring-4 focus:ring-brand/30">
+                        <option value="">— Choisir —</option>
+                        <option>Hôtellerie</option>
+                        <option>Entrepreneuriat</option>
+                        <option>Informatique</option>
+                        <option>Transport</option>
+                        <option>Études</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+                <div class="grid gap-1.5">
+                    <label for="desc" class="text-sm text-neutral-400">Résumé (fr/soninké)</label>
+                    <textarea id="desc" rows="3"
+                        class="bg-neutral-900/60 border border-white/20 rounded-xl px-3 py-2 outline-none focus:ring-4 focus:ring-brand/30"
+                        placeholder="Brève description de l'audio…"></textarea>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 mt-4">
+                <button id="btn-record" type="button"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black font-semibold shadow">⏺️
+                    Enregistrer</button>
+                <button id="btn-upload" type="button"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20">⏫
+                    Envoyer</button>
+                <span id="status" role="status" aria-live="polite" class="text-neutral-400"></span>
+            </div>
+
+            <div id="preview" class="mt-4"></div>
+        </section>
+
+        <!-- Explore card -->
+        <section id="explore" aria-labelledby="explore-title"
+            class="rounded-[16px] border-none bg-neutral-900/60 p-5 shadow-xl">
+            <h2 id="explore-title" class="text-2xl font-semibold">Explorer</h2>
+            <p class="text-neutral-400 mb-4">Derniers témoignages (données locales de démonstration).</p>
+            <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </section>
+    </main>
+
+    <!-- ====== ABOUT ====== -->
+    <section id="about" class="mx-auto max-w-content px-6 py-9">
+        <h2 class="text-2xl font-semibold">À propos</h2>
+        <p class="text-neutral-400 mt-2">Projet communautaire open‑source. Objectif : rendre le savoir‑faire soninké
+            accessible via de courts audios thématiques. Prochaine étape : modération, filtres par métiers, profils
+            vérifiés, et transcription.</p>
+    </section>
+
+    <footer
+        class="absolute border-none bottom-0 w-full bg-black mx-auto max-w-content px-6 py-6 border-t  text-neutral-600 ">
+        © <span id="year"></span> O guiri Ra • OGR — Fait par la communauté pour la communauté.
+    </footer>
+
+    <!-- Script -->
+    <script src="app.js" defer></script>
+</body>
+
+</html>
